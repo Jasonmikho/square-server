@@ -15,8 +15,8 @@ app.use(express.json());
 
 // 🔐 Auth
 const client = new Client({
-  environment: Environment.Sandbox,
-  accessToken: process.env.SQUARE_ACCESS_TOKEN_SANDBOX,
+  environment: Environment.Production,
+  accessToken: process.env.SQUARE_ACCESS_TOKEN_PROD,
 });
 
 app.post('/payments', async (req, res) => {
@@ -44,7 +44,7 @@ app.post('/payments', async (req, res) => {
     const safePayment = JSON.parse(JSON.stringify(response.result.payment, (_, val) =>
       typeof val === 'bigint' ? val.toString() : val
     ));
-    
+
     res.json({ payment: safePayment });
 
   } catch (error) {
